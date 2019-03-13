@@ -29,7 +29,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	// vector with all Employees details
-	Vector<Object> allEmployees;
+	Vector<Object> allEmployees; 
 	JButton back;
 	
 	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
