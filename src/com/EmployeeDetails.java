@@ -1,11 +1,4 @@
 package com;
-/* * 
- * This is a menu driven system that will allow users to define a data structure representing a collection of 
- * records that can be displayed both by means of a dialog that can be scrolled through and by means of a table
- * to give an overall view of the collection contents.
- * 
- * */
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,20 +43,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import net.miginfocom.swing.MigLayout;
 
 public class EmployeeDetails extends JFrame implements ActionListener, ItemListener, DocumentListener, WindowListener {
-	// decimal format for inactive currency text field
 	private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00");
-	// decimal format for active currency text field
 	private static final DecimalFormat fieldFormat = new DecimalFormat("0.00");
-	// hold object start position in file
 	private long currentByteStart = 0;
 	private RandomFile application = new RandomFile();
-	// display files in File Chooser only with extension .dat
 	private FileNameExtensionFilter datfilter = new FileNameExtensionFilter("dat files (*.dat)", "dat");
-	// hold file name and path for current file in use
 	private File file;
-	// holds true or false if any changes are made for text fields
 	private boolean change = false;
-	// holds true or false if any changes are made for file content
 	boolean changesMade = false;
 	private JMenuItem open, save, saveAs, create, modify, delete, firstItem, lastItem, nextItem, prevItem, searchById,
 			searchBySurname, listAll, closeApp;
@@ -72,31 +58,34 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
 	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	private static EmployeeDetails frame = new EmployeeDetails();
-	// font for labels, text fields and combo boxes
+	
 	Font font1 = new Font("SansSerif", Font.BOLD, 16);
-	// holds automatically generated file name
+	
 	String generatedFileName;
-	// holds current Employee object
+	
 	Employee currentEmployee;
 	JTextField searchByIdField, searchBySurnameField;
-	// gender combo box values
+	
 	String[] gender = { "", "M", "F" };
-	// department combo box values
+	
 	String[] department = { "", "Administration", "Production", "Transport", "Management" };
-	// full time combo box values
+	
 	String[] fullTime = { "", "Yes", "No" };
 
-	// initialize menu bar
+	
 	private JMenuBar menuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu, recordMenu, navigateMenu, closeMenu;
 
 		fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
+		
 		recordMenu = new JMenu("Records");
 		recordMenu.setMnemonic(KeyEvent.VK_R);
+		
 		navigateMenu = new JMenu("Navigate");
 		navigateMenu.setMnemonic(KeyEvent.VK_N);
+		
 		closeMenu = new JMenu("Exit");
 		closeMenu.setMnemonic(KeyEvent.VK_E);
 
@@ -141,9 +130,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		closeApp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.CTRL_MASK));
 
 		return menuBar;
-	}// end menuBar
+	}
 
-	// initialize search panel
+	
 	private JPanel searchPanel() {
 		JPanel searchPanel = new JPanel(new MigLayout());
 
@@ -152,9 +141,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
+		
 		searchPanel.add(searchId = new JButton(new ImageIcon(
-				new ImageIcon("imgres.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
-				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
+				new ImageIcon("searcher.png").getImage().getScaledInstance(30, 18, java.awt.Image.SCALE_SMOOTH))),
+				"width 35:35:35, height 25:25:25, growx, pushx, wrap");
 		searchId.addActionListener(this);
 		searchId.setToolTipText("Search Employee By ID");
 
@@ -162,28 +152,26 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchBySurnameField.addActionListener(this);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
-		searchPanel.add(
-				searchSurname = new JButton(new ImageIcon(new ImageIcon("imgres.png").getImage()
-						.getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
-				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
+		
+		searchPanel.add(searchSurname = new JButton(new ImageIcon(
+				new ImageIcon("search-name.png").getImage().getScaledInstance(25, 15, java.awt.Image.SCALE_SMOOTH))),
+				"width 35:35:35, height 25:25:25, growx, pushx, wrap");
 		searchSurname.addActionListener(this);
 		searchSurname.setToolTipText("Search Employee By Surname");
 
 		return searchPanel;
-	}// end searchPanel
-
-	// initialize navigation panel
+	}
 	private JPanel navigPanel() {
 		JPanel navigPanel = new JPanel();
 
 		navigPanel.setBorder(BorderFactory.createTitledBorder("Navigate"));
 		navigPanel.add(first = new JButton(new ImageIcon(
-				new ImageIcon("first.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
+				new ImageIcon("left-arrow.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		first.setPreferredSize(new Dimension(17, 17));
 		first.addActionListener(this);
 		first.setToolTipText("Display first Record");
 
-		navigPanel.add(previous = new JButton(new ImageIcon(new ImageIcon("previous.png").getImage()
+		navigPanel.add(previous = new JButton(new ImageIcon(new ImageIcon("back.png").getImage()
 				.getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		previous.setPreferredSize(new Dimension(17, 17));
 		previous.addActionListener(this);
@@ -196,13 +184,13 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		next.setToolTipText("Display previous Record");
 
 		navigPanel.add(last = new JButton(new ImageIcon(
-				new ImageIcon("last.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
+				new ImageIcon("right-arrow.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		last.setPreferredSize(new Dimension(17, 17));
 		last.addActionListener(this);
 		last.setToolTipText("Display last Record");
 
 		return navigPanel;
-	}// end naviPanel
+	}
 
 	private JPanel buttonPanel() {
 		JPanel buttonPanel = new JPanel();
@@ -219,18 +207,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		buttonPanel.add(displayAll = new JButton("List all Records"), "growx, pushx");
 		displayAll.addActionListener(this);
 		displayAll.setToolTipText("List all Registered Employees");
-
 		return buttonPanel;
 	}
 
-	// initialize main/details panel
+	
 	private JPanel detailsPanel() {
 		JPanel empDetails = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel();
 		JTextField field;
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
-
 		empDetails.add(new JLabel("ID:"), "growx, pushx");
 		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
 		idField.setEditable(false);
@@ -267,7 +253,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
 
-		// loop through panel components and add listeners and format
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(font1);
 			if (empDetails.getComponent(i) instanceof JTextField) {
@@ -284,18 +269,18 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				empDetails.getComponent(i).setEnabled(false);
 				((JComboBox<String>) empDetails.getComponent(i)).addItemListener(this);
 				((JComboBox<String>) empDetails.getComponent(i)).setRenderer(new DefaultListCellRenderer() {
-					// set foregroung to combo boxes
+					
 					public void paint(Graphics g) {
 						setForeground(new Color(65, 65, 65));
 						super.paint(g);
-					}// end paint
+					}
 				});
-			} // end else if
-		} // end for
+			} 
+		} 
 		return empDetails;
-	}// end detailsPanel
+	}
 
-	// display current Employee details
+	
 	public void displayRecords(Employee thisEmployee) {
 		int countGender = 0;
 		int countDep = 0;
@@ -653,27 +638,24 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	public boolean correctPps(String pps, long currentByte) {
 		boolean ppsExist = false;
 		// check for correct PPS format based on assignment description
-		if (pps.length() == 8 || pps.length() == 9) {
+		if (pps.length() == 7) {
 			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1))
 					&& Character.isDigit(pps.charAt(2))	&& Character.isDigit(pps.charAt(3)) 
 					&& Character.isDigit(pps.charAt(4))	&& Character.isDigit(pps.charAt(5)) 
-					&& Character.isDigit(pps.charAt(6))	&& Character.isLetter(pps.charAt(7))
-					&& (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
-				// open file for reading
+					&& Character.isDigit(pps.charAt(6)))
+					 {
 				application.openReadFile(file.getAbsolutePath());
-				// look in file is PPS already in use
 				ppsExist = application.isPpsExist(pps, currentByte);
-				application.closeReadFile();// close file for reading
-			} // end if
+				application.closeReadFile();
+				 }
 			else
 				ppsExist = true;
-		} // end if
+		} 
 		else
 			ppsExist = true;
-
 		return ppsExist;
-	}// end correctPPS
-
+	}
+	
 	// check if file name has extension .dat
 	private boolean checkFileName(File fileName) {
 		boolean checkFile = false;
