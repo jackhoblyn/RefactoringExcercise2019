@@ -72,7 +72,7 @@ public class Employee{
 	
 	public void setPps(String pps) {
 		this.pps = pps;
-	}
+	} 
 
 	public void setSurname(String surname) {
 		this.surname = surname;
