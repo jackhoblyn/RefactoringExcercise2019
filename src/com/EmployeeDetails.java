@@ -992,7 +992,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			searchEmployeeBySurname();
 		else if (e.getSource() == saveChange) {
 			if (checkInput() && !checkForChanges())
-				;
+				saveChanges();
 		} else if (e.getSource() == cancelChange)
 			cancelChange();
 		else if (e.getSource() == firstItem || e.getSource() == first) {
