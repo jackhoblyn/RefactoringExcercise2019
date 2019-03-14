@@ -54,7 +54,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private JMenuItem open, save, saveAs, create, modify, delete, firstItem, lastItem, nextItem, prevItem, searchById,
 			searchBySurname, listAll, closeApp;
 	private JButton first, previous, next, last, add, edit, deleteButton, displayAll, searchId, searchSurname,
-			saveChange, cancelChange;
+			saveChange, cancelChange, closeButton;
 	private JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
 	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	private static EmployeeDetails frame = new EmployeeDetails();
@@ -86,13 +86,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		navigateMenu = new JMenu("Navigate");
 		navigateMenu.setMnemonic(KeyEvent.VK_N);
 		
-		closeMenu = new JMenu("Exit");
-		closeMenu.setMnemonic(KeyEvent.VK_E);
+		closeButton = new JButton("Close App");
+		closeButton.setMnemonic(KeyEvent.VK_C);
+		closeButton.setOpaque(false);
+		closeButton.setContentAreaFilled(false);
+		closeButton.setBorderPainted(false);
 
 		menuBar.add(fileMenu);
 		menuBar.add(recordMenu);
 		menuBar.add(navigateMenu);
-		menuBar.add(closeMenu);
+		menuBar.add(closeButton);
 
 		fileMenu.add(open = new JMenuItem("Open")).addActionListener(this);
 		open.setMnemonic(KeyEvent.VK_O);
@@ -125,9 +128,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		navigateMenu.add(searchBySurname = new JMenuItem("Search by Surname")).addActionListener(this);
 		navigateMenu.add(listAll = new JMenuItem("List all Records")).addActionListener(this);
 
-		closeMenu.add(closeApp = new JMenuItem("Close")).addActionListener(this);
-		closeApp.setMnemonic(KeyEvent.VK_F4);
-		closeApp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.CTRL_MASK));
+		closeButton.addActionListener(this);
+		closeButton.setActionCommand("Cloooose");
 
 		return menuBar;
 	}
@@ -966,7 +968,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// action listener for buttons, text field and menu items
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == closeApp) {
+		if (e.getSource() == closeButton) {
 			if (checkInput() && !checkForChanges())
 				exitApp();
 		} else if (e.getSource() == open) {
