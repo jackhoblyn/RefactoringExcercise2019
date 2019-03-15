@@ -851,6 +851,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// if user choose to save changes, save changes
 		if (returnVal == JOptionPane.YES_OPTION) {
 			// open file for writing
+			salaryField.setText(fieldFormat.format(currentEmployee.getSalary()));
 			application.openWriteFile(file.getAbsolutePath());
 			// get changes for current Employee
 			currentEmployee = getChangedDetails();
