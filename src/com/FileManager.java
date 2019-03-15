@@ -1,9 +1,4 @@
 package com;
-/*
- * 
- * This class is for accessing, creating and modifying records in a file
- * 
- * */
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -12,36 +7,35 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class RandomFile {
+public class FileManager {
 	private RandomAccessFile output;
 	private RandomAccessFile input;
 
-	// Create new file
+	
 	public void createFile(String fileName) {
 		RandomAccessFile file = null;
 
-		try // open file for reading and writing
+		try 
 		{
 			file = new RandomAccessFile(fileName, "rw");
 
-		} // end try
+		}
 		catch (IOException ioException) {
 			JOptionPane.showMessageDialog(null, "Error processing file!");
 			System.exit(1);
-		} // end catch
+		} 
 
 		finally {
 			try {
 				if (file != null)
-					file.close(); // close file
-			} // end try
+					file.close(); 
+			} 
 			catch (IOException ioException) {
 				JOptionPane.showMessageDialog(null, "Error closing file!");
 				System.exit(1);
-			} // end catch
-		} // end finally
-	} // end createFile
-
+			} 
+		} 
+	} 
 	// Open file for adding or changing records
 	public void openWriteFile(String fileName) {
 		try // open file
