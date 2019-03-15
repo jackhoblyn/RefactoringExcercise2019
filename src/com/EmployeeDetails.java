@@ -128,9 +128,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		navigateMenu.add(searchById = new JMenuItem("Search by ID")).addActionListener(this);
 		navigateMenu.add(searchBySurname = new JMenuItem("Search by Surname")).addActionListener(this);
 		navigateMenu.add(listAll = new JMenuItem("List all Records")).addActionListener(this);
-
 		closeButton.addActionListener(this);
-
+		
 		return menuBar;
 	}
 	
@@ -910,62 +909,47 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			if (changesMade) {
 				int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-				// if user chooses to save file, save file
 				if (returnVal == JOptionPane.YES_OPTION) {
-					saveFile();// save file
-					// delete generated file if user saved details to other file
+					saveFile();
 					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
-				} // end if
-					// else exit application
+						file.delete();
+					System.exit(0);
+				} 
 				else if (returnVal == JOptionPane.NO_OPTION) {
-					// delete generated file if user chooses not to save file
 					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
-				} // end else if
-			} // end if
+						file.delete();
+					System.exit(0);
+				} 
+			} 
 			else {
-				// delete generated file if user chooses not to save file
 				if (file.getName().equals(generatedFileName))
-					file.delete();// delete file
-				System.exit(0);// exit application
-			} // end else
-				// else exit application
+					file.delete();
+				System.exit(0);
+			} 
 		} else {
-			// delete generated file if user chooses not to save file
 			if (file.getName().equals(generatedFileName))
-				file.delete();// delete file
-			System.exit(0);// exit application
-		} // end else
-	}// end exitApp
+				file.delete();
+			System.exit(0);
+		} 
+	}
 
-	// generate 20 character long file name
 	private String getFileName() {
 		String fileNameChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
 		StringBuilder fileName = new StringBuilder();
 		Random rnd = new Random();
-		// loop until 20 character long file name is generated
 		while (fileName.length() < 20) {
 			int index = (int) (rnd.nextFloat() * fileNameChars.length());
 			fileName.append(fileNameChars.charAt(index));
 		}
 		String generatedfileName = fileName.toString();
 		return generatedfileName;
-	}// end getFileName
+	}
 
-	// create file with generated file name when application is opened
 	private void createRandomFile() {
 		generatedFileName = getFileName() + ".dat";
-		// assign generated file name to file
 		file = new File(generatedFileName);
-		// create file
 		application.createFile(file.getName());
-	}// end createRandomFile
-
-	// action listener for buttons, text field and menu items
-	
+	}
 	
 	public void actionPerformed(ActionEvent e) {
 
@@ -1035,28 +1019,22 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		
 	}
 
-	// content pane for main dialog
 	private void createContentPane() {
 		setTitle("Employee Details");
-		createRandomFile();// create random file name
+		createRandomFile();
 		JPanel dialog = new JPanel(new MigLayout());
 
-		setJMenuBar(menuBar());// add menu bar to frame
-		// add search panel to frame
+		setJMenuBar(menuBar());
 		dialog.add(searchPanel(), "width 400:400:400, growx, pushx");
-		// add navigation panel to frame
 		dialog.add(navigPanel(), "width 150:150:150, wrap");
-		// add button panel to frame
 		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
-		// add details panel to frame
 		dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
 
 		JScrollPane scrollPane = new JScrollPane(dialog);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		addWindowListener(this);
-	}// end createContentPane
+	}
 
-	// create and show main dialog
 	private static void createAndShowGUI() {
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -1064,18 +1042,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		frame.setSize(760, 600);
 		frame.setLocation(250, 200);
 		frame.setVisible(true);
-	}// end createAndShowGUI
+	}
 
-	// main method
 	public static void main(String args[]) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
 			}
 		});
-	}// end main
+	}
 
-	// DocumentListener methods
 	public void changedUpdate(DocumentEvent d) {
 		change = true;
 		new JTextFieldLimit(20);
@@ -1091,14 +1067,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		new JTextFieldLimit(20);
 	}
 
-	// ItemListener method
 	public void itemStateChanged(ItemEvent e) {
 		change = true;
 	}
-
-	// WindowsListener methods
+	
 	public void windowClosing(WindowEvent e) {
-		// exit application
 		exitApp();
 	}
 
@@ -1119,4 +1092,4 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public void windowOpened(WindowEvent e) {
 	}
-}// end class EmployeeDetails
+}
