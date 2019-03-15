@@ -65,33 +65,34 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		
 		tableModel = new DefaultTableModel(this.allEmployees, header) {
 			public Class getColumnClass(int c) {
-				switch (c) {
-				case 0:
+				if (c==0) {
 					return Integer.class;
-				case 4:
+				}
+				else if(c==4)
+				{
 					return Character.class;
-				case 6:
+				}
+				else if(c==6)
+				{
 					return Double.class;
-				case 7:
+				}
+				else if(c==7)
+				{
 					return Boolean.class;
-				default:
+				}
+				else
+				{
 					return String.class;
 				}
 			}
+				
 		};
 		
-		
-		
-		
-		
-		
-
 		employeeTable = new JTable(tableModel);
-		// add header names to table
+	
 		for (int i = 0; i < employeeTable.getColumnCount(); i++) {
 			employeeTable.getColumn(headerName[i]).setMinWidth(colWidth[i]);
-		}// end for
-		// set alignments
+		}
 		employeeTable.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 		employeeTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 		employeeTable.getColumnModel().getColumn(6).setCellRenderer(new DecimalFormatRenderer());
@@ -110,7 +111,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		scrollPane.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 		
 		return summaryDialog;
-	}// end summaryPane
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == back){
@@ -118,7 +119,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		}
 
 	}
-	// format for salary column
+	
 	static class DecimalFormatRenderer extends DefaultTableCellRenderer {
 		 private static final DecimalFormat format = new DecimalFormat(
 		 "\u20ac ###,###,##0.00" );
@@ -129,10 +130,10 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 			Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			 JLabel label = (JLabel) c;
 			 label.setHorizontalAlignment(JLabel.RIGHT);
-			 // format salary column
+			
 			value = format.format((Number) value);
 
 			return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-		}// end getTableCellRendererComponent
-	}// DefaultTableCellRenderer
-}// end class EmployeeSummaryDialog
+		}
+	}
+}
