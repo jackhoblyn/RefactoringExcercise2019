@@ -127,16 +127,16 @@ public class AddRecords extends JDialog implements ActionListener {
 		try {
 		
 			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(Color.red);
+				salaryField.setBackground(Colors.red);
 				valid = false;
 			}
 		}
 		catch (NumberFormatException num) {
-			salaryField.setBackground(Color.red);
+			salaryField.setBackground(Colors.red);
 			valid = false;
 		}
 		if (fullTimeCombo.getSelectedIndex() == 0) {
-			fullTimeCombo.setBackground(Color.red);
+			fullTimeCombo.setBackground(Colors.red);
 			valid = false;
 		}
 		}
