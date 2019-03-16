@@ -22,11 +22,11 @@ import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
 
-public class EmployeeSummaryDialog extends JDialog implements ActionListener {
+public class EmployeeInformation extends JDialog implements ActionListener {
 	Vector<Object> allEmployees; 
 	JButton back;
 	
-	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
+	public EmployeeInformation(Vector<Object> allEmployees) {
 		setTitle("Employee Summary");
 		setModal(true);
 		this.allEmployees = allEmployees;

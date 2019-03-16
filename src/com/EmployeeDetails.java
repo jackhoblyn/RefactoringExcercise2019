@@ -321,16 +321,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	private void displayEmployeeSummaryDialog() {
 		if (isSomeoneToDisplay())
-			new EmployeeSummaryDialog(getAllEmloyees());
+			new EmployeeInformation(getAllEmloyees());
 	}
 	private void displaySearchByIdDialog() {
 		if (isSomeoneToDisplay())
-			new SearchByIdDialog(EmployeeDetails.this);
+			new SearchById(EmployeeDetails.this);
 	}
 
 	private void displaySearchBySurnameDialog() {
 		if (isSomeoneToDisplay())
-			new SearchBySurnameDialog(EmployeeDetails.this);
+			new SearchBySurname(EmployeeDetails.this);
 	}
 
 	private void firstRecord() {
@@ -866,7 +866,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 					displayEmployeeSummaryDialog();
 			}
 			else if (e.getSource() == create || e.getSource() == add) {
-				new AddRecordDialog(EmployeeDetails.this);
+				new AddRecords(EmployeeDetails.this);
 			}
 			else if (e.getSource() == modify || e.getSource() == edit) {
 				editDetails();
@@ -875,7 +875,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				deleteRecord();
 			}
 			else if (e.getSource() == searchBySurname) {
-				new SearchBySurnameDialog(EmployeeDetails.this);
+				new SearchBySurname(EmployeeDetails.this);
 			}
 		}
 		
