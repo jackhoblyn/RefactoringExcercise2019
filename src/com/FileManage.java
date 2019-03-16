@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class FileManager {
+public class FileManage {
 	private RandomAccessFile output;
 	private RandomAccessFile input;
 

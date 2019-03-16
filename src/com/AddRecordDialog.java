@@ -113,37 +113,19 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent.addRecord(theEmployee);
 		this.parent.displayRecords(theEmployee);
 	}
-
+	
 	public boolean checkInput() {
 		boolean valid = true;
+		boolean validation = true;
+
+		if (Validation.validate(ppsField, surnameField, firstNameField, genderCombo, departmentCombo)) {
+			validation = true;
+		}
 		
-		if (ppsField.getText().equals("")) {
-			ppsField.setBackground(Color.red);
-			valid = false;
-		}
-		if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
-			ppsField.setBackground(Color.red);
-			valid = false;
-		}
-		if (surnameField.getText().isEmpty()) {
-			surnameField.setBackground(Color.red);
-			valid = false;
-		}
-		if (firstNameField.getText().isEmpty()) {
-			firstNameField.setBackground(Color.red);
-			valid = false;
-		}
-		if (genderCombo.getSelectedIndex() == 0) {
-			genderCombo.setBackground(Color.red);
-			valid = false;
-		}
-		if (departmentCombo.getSelectedIndex() == 0) {
-			departmentCombo.setBackground(Color.red);
-			valid = false;
-		}
-		try {
-			Double.parseDouble(salaryField.getText());
+		if (validation == true) {
 			
+		try {
+		
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(Color.red);
 				valid = false;
@@ -157,8 +139,12 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			fullTimeCombo.setBackground(Color.red);
 			valid = false;
 		}
+		}
 		return valid;
 	}
+		
+
+		
 	
 	public void setToWhite() {
 		ppsField.setBackground(Color.WHITE);
