@@ -3,17 +3,17 @@ package com;
 import java.io.RandomAccessFile;
 import java.io.IOException;
 
-public class RandomAccessEmployeeRecord extends Employee
+public class EmployeeRecordData extends Employee
 {  
     public static final int SIZE = 175; 
 
 
-   public RandomAccessEmployeeRecord()
+   public EmployeeRecordData()
    {
       this(0, "","","",'\0', "", 0.0, false);
    } 
 
-   public RandomAccessEmployeeRecord( int employeeId, String pps, String surname, String firstName, char gender, 
+   public EmployeeRecordData( int employeeId, String pps, String surname, String firstName, char gender, 
 		   String department, double salary, boolean fullTime)
    {
       super(employeeId, pps, surname, firstName, gender, department, salary, fullTime);
